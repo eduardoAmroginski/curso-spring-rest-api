@@ -47,10 +47,37 @@ public class IndexController {
     @PostMapping(value = "/", produces = "application/json")
     public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario){
 
+        usuario.getTelefones().forEach(telefone -> {
+            telefone.setUsuario(usuario);
+        });
+
         Usuario usuarioNovo = usuarioRepository.save(usuario);
 
         return new ResponseEntity<Usuario>(usuarioNovo, HttpStatus.OK);
 
+    }
+
+    @PutMapping(value = "/", produces = "application/json")
+    public ResponseEntity<Usuario> atualizar(@RequestBody Usuario usuario){
+
+        usuario.getTelefones().forEach(telefone -> {
+            telefone.setUsuario(usuario);
+        });
+
+        Usuario usuarioAtualizar = usuarioRepository.save(usuario);
+
+        return new ResponseEntity<Usuario>(usuarioAtualizar, HttpStatus.OK);
+
+    }
+
+    @DeleteMapping(value = "/{id}", produces = "application/text")
+    public ResponseEntity delete(@PathVariable(value = "id") Long id){
+
+        usuarioRepository.deleteById(id);
+
+        String mensagem = "Usuário com o id: " + id + " deletado, com sucesso";
+
+        return new ResponseEntity(mensagem, HttpStatus.OK);
     }
 
 
