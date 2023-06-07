@@ -19,7 +19,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableJpaRepositories(basePackages = {"curso.api.rest.repository"})
 @EnableTransactionManagement
 @RestController
-@EnableAutoConfiguration
 public class CursoSpringRestApiApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
@@ -29,6 +28,9 @@ public class CursoSpringRestApiApplication implements WebMvcConfigurer {
 	/*Definição global dos CORS*/
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedMethods("*").allowedOrigins("*"); //Libera o Acesso a todas as Controllers, todos os Metodos e todas as Origins
+		registry.addMapping("/**")
+				.allowedMethods("*")
+				.allowedOrigins("*")
+				.allowedHeaders("*"); //Libera o Acesso a todas as Controllers, todos os Metodos e todas as Origins
 	}
 }
