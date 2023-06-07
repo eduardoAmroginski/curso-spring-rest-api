@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableAsync
 @SpringBootApplication
@@ -18,10 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableTransactionManagement
 @RestController
 @EnableAutoConfiguration
-public class CursoSpringRestApiApplication {
+public class CursoSpringRestApiApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringRestApiApplication.class, args);
 	}
 
+	/*Definição global dos CORS*/
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**").allowedMethods("*").allowedOrigins("*"); //Libera o Acesso a todas as Controllers, todos os Metodos e todas as Origins
+	}
 }
