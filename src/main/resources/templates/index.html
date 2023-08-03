@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <main>
+        <textarea id="texto" cols="80" rows="20"></textarea>
+    </main>
+
+    <script>
+       async function fetchUsuario(){
+           let url = "http://localhost:8080/cursospringrestapi/usuario/"
+           let options = {
+               method: "GET",
+           }
+           const data = await fetch(url, options)
+               .then(response => response.json())
+               .then(response => transformToText(response))
+               .catch(error => console.log("Error: ", error))
+
+           console.log(data)
+
+       }
+
+        const transformToText = (data) => {
+            let text = ""
+            data.forEach(item => {
+                text += `Id: ${item.id} - Nome: ${item.nome} \n`
+            })
+           document.querySelector("#texto").value = text;
+           return text
+        }
+
+        fetchUsuario()
+
+    </script>
+
+</body>
+</html>

@@ -23,6 +23,7 @@ public class CursoSpringRestApiApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringRestApiApplication.class, args);
+		System.out.println("Running in: http://localhost:8080");
 	}
 
 	/*Definição global dos CORS*/
