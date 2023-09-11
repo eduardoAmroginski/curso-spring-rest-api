@@ -11,30 +11,55 @@
     </main>
 
     <script>
-       async function fetchUsuario(){
-           let url = "http://localhost:8080/cursospringrestapi/usuario/"
-           let options = {
-               method: "GET",
-           }
-           const data = await fetch(url, options)
-               .then(response => response.json())
-               .then(response => transformToText(response))
-               .catch(error => console.log("Error: ", error))
+<!--       async function fetchUsuario(){-->
+<!--           let url = "http://localhost:8080/cursospringrestapi/usuario/"-->
+<!--           let options = {-->
+<!--               method: "GET",-->
+<!--           }-->
+<!--           const data = await fetch(url, options)-->
+<!--               .then(response => response.json())-->
+<!--               .then(response => transformToText(response))-->
+<!--               .catch(error => console.log("Error: ", error))-->
 
-           console.log(data)
+<!--           console.log(data)-->
 
-       }
+<!--       }-->
 
-        const transformToText = (data) => {
-            let text = ""
-            data.forEach(item => {
-                text += `Id: ${item.id} - Nome: ${item.nome} \n`
-            })
-           document.querySelector("#texto").value = text;
-           return text
+<!--        const transformToText = (data) => {-->
+<!--            let text = ""-->
+<!--            data.forEach(item => {-->
+<!--                text += `Id: ${item.id} - Nome: ${item.nome} \n`-->
+<!--            })-->
+<!--           document.querySelector("#texto").value = text;-->
+<!--           return text-->
+<!--        }-->
+
+<!--        fetchUsuario()-->
+
+        async function fetchUsuario(){
+            const url = "http://localhost:8080/cursospringrestapi/usuario/";
+            const options = {
+                method: "GET",
+            };
+
+            try{
+                const response = await fetch(url, options);
+                const data = await response.json();
+                const text = transformToText(data);
+                console.log(text)
+            }catch (error){
+                console.log("Error: ", error);
+            }
+
         }
 
-        fetchUsuario()
+        function transformToText(data){
+            const text = data.map(item => `Id: ${item.id} - Nome: ${item.nome}`).join("\n");
+            document.querySelector("#texto").value = text;
+            return text;
+        }
+
+        fetchUsuario();
 
     </script>
 
